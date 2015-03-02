@@ -38,7 +38,7 @@ def read_bam(dic,infile):
 			itere = bamfile.fetch(value[0], int(f[0]), int(f[1]))#recives the chromossome and start and stop positions
 			for x in itere:
 				temp=str(x)#transforms the object from pysam into a string, to be possible retrive only the read name.
-				list_reads_temp.add(temp.split(" ")[0])#adds the read name to a set
+				list_reads_temp.add(temp.split("\t")[0])#adds the read name to a set
 			a+=1
 		dic_cont[key]=len(list_reads_temp)#add the gene and counts to the dictionary
 	bamfile.close()
