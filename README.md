@@ -8,7 +8,7 @@ The output of this script can be easly submited to different softwares to calcul
 
 In the command line:
 
-<pre><code>python read_bam.py [gff file] [sorted bam file] [outputfile]
+<pre><code>python bamzinga.py [gff file] [sorted bam file] [outputfile]
 </code></pre>
 
 ##Dependencies:

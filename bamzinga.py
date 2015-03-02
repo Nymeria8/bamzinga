@@ -1,5 +1,5 @@
 #Gets read counts from an alignment bam file, by gene
-#Usage: python read_bam.py [gff file] [sorted bam file] [outputfile]
+#Usage: python bamzinga.py [gff file] [sorted bam file] [outputfile]
 
 from sys import argv
 from collections import OrderedDict
