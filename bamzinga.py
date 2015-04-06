@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 #Gets read counts from an alignment bam file, by gene or by isoform.
 #use the flags G or I for gene or isoform quantification
 #Usage: python bamzinga.py [gff file] [sorted bam file] [outputfile] [G/I]
