@@ -34,13 +34,12 @@ def read_gtf_merge(infile):
 	for i in fil:
 		d=i.split('\t')
 		s=d[8].split('"')
-		if d[2]==("exon"):
-			if s[1] in dic:
+		if d[2]==("exon"):#this line can be replaced by if s[13]=="j":, to report only the novel assembled transcripts from cufflinks
+			if s[9] in dic:
 				dic[s[9]].append(d[3]+","+d[4])#append the start and stop position
 			else:
 				dic[s[9]]=[d[0],d[3]+","+d[4]]#append the chromossome name, star and stop positions
 	fil.close()
-	print(dic)
 	return dic
 
 def read_bam(dic,infile):
