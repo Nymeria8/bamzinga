@@ -34,7 +34,7 @@ def read_gtf_merge(infile):
 	for i in fil:
 		d=i.split('\t')
 		s=d[8].split('"')
-		if d[3]==("exon"):
+		if d[2]==("exon"):
 			if s[1] in dic:
 				dic[s[9]].append(d[3]+","+d[4])#append the start and stop position
 			else:
