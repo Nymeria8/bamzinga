@@ -11,7 +11,7 @@ In the command line:
 <pre><code>python bamzinga.py [gtf file] [sorted bam file] [outputfile] [G/I]
 </code></pre>
 
-**The G/I flag is used to designate the type of gff and the type of quantification:**
+**The G/I flag is used to designate the type of gtf and the type of quantification:**
 
 + **G** - gene quantification. It uses the gtf format of the Ensembl genomes
 + **I** - Isoform quantification. It uses the cuffmerge ouput gtf format of the [cufflinks](http://cole-trapnell-lab.github.io/cufflinks/) pipeline.
