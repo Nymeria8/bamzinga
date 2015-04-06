@@ -1,12 +1,14 @@
-#Gets read counts from an alignment bam file, by gene
-#Usage: python bamzinga.py [gff file] [sorted bam file] [outputfile]
+#Gets read counts from an alignment bam file, by gene or by isoform.
+#use the flags G or I for gene or isoform quantification
+#Usage: python bamzinga.py [gff file] [sorted bam file] [outputfile] [G/I]
 
 from sys import argv
 from collections import OrderedDict
 import pysam
 
-def read_gff(infile):
-	"""Gets the gff file and organize it in an ordered
+def read_gtf_ensembl(infile):
+	"""Gets the gff file (as seen in the ensemble references)
+	and organize it in an ordered
 	dictionary as [gene]=[chromossome, (start position,stop position)]
 	Retrives the same dictionary"""
 	fil=open(infile)
@@ -20,6 +22,24 @@ def read_gff(infile):
 			else:
 				dic[s[1]]=[d[0],d[3]+","+d[4]]#append the chromossome name, star and stop positions
 	fil.close()
+	return dic
+
+def read_gtf_merge(infile):
+	"""Read the merged.gtf file and organize a dictionary by
+	dictionary as [gene]=[chromossome, (start position,stop position)]
+	Retrives the same dictionary"""
+	fil=open(infile)
+	dic=OrderedDict()
+	for i in fil:
+		d=i.split('\t')
+		s=d[8].split('"')
+		if d[3]==("exon"):
+			if s[1] in dic:
+				dic[s[9]].append(d[3]+","+d[4])#append the start and stop position
+			else:
+				dic[s[9]]=[d[0],d[3]+","+d[4]]#append the chromossome name, star and stop positions
+	fil.close()
+	print(dic)
 	return dic
 
 def read_bam(dic,infile):
@@ -53,5 +73,11 @@ def counts_write(dic, outfile):
 	out.close()
 	
 
-counts_write(read_bam(read_gff(argv[1]),argv[2]),argv[3])
-				
+if argv[4]=="G":
+	counts_write(read_bam(read_gtf_ensembl(argv[1]),argv[2]),argv[3])
+elif argv[4]=="I":
+	counts_write(read_bam(read_gtf_merge(argv[1]),argv[2]),argv[3])
+else:
+	print ("Not a valid option. please run again with one of the options:\n"
+	       "G - for gene quantification based on a reference genome gtf file\n"
+		   "I - for isoform quantification using a merged gtf file, after cuffmerge step")
